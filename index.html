@@ -29,7 +29,6 @@
     padding-bottom: 40px;
   }
 
-  /* Header */
   .header {
     background: linear-gradient(135deg, #4dd0e1 0%, #8bc34a 45%, #ec4899 100%);
     border-radius: 0 0 28px 28px;
@@ -62,7 +61,6 @@
     opacity: 0.95;
   }
 
-  /* Cards */
   .card {
     background: #fff;
     border-radius: 18px;
@@ -125,7 +123,6 @@
     box-shadow: 0 0 0 3px rgba(33,150,243,0.15);
   }
 
-  /* BMI box */
   .bmi-box {
     margin-top: 14px;
     border-radius: 14px;
@@ -153,7 +150,6 @@
     color: #2196f3;
   }
 
-  /* PDPA */
   .pdpa-row {
     display: flex;
     align-items: flex-start;
@@ -174,7 +170,6 @@
     color: var(--text-dark);
   }
 
-  /* Submit */
   .submit-btn {
     display: block;
     width: calc(100% - 32px);
@@ -240,7 +235,6 @@
 
   <form id="regForm">
 
-    <!-- ข้อมูลสมาชิก -->
     <div class="card">
       <h2><span class="icon-person"></span> ข้อมูลสมาชิก</h2>
 
@@ -299,7 +293,6 @@
       </select>
     </div>
 
-    <!-- ข้อมูลสุขภาพ -->
     <div class="card">
       <h2><span class="icon-heart"></span> ข้อมูลสุขภาพ</h2>
 
@@ -319,7 +312,6 @@
       </div>
     </div>
 
-    <!-- PDPA -->
     <div class="card">
       <h2><span class="icon-lock"></span> PDPA</h2>
       <label class="pdpa-row" style="margin-top:0;">
@@ -336,6 +328,17 @@
 <div class="toast" id="toast">สมัครสมาชิกสำเร็จ 🎉</div>
 
 <script>
+  const firstNameInput = document.getElementById('firstName');
+  const lastNameInput = document.getElementById('lastName');
+  const phoneInput = document.getElementById('phone');
+  const genderInput = document.getElementById('gender');
+  const ageRangeInput = document.getElementById('ageRange');
+  const occupationInput = document.getElementById('occupation');
+  const rightsInput = document.getElementById('rights');
+  const mooInput = document.getElementById('moo');
+  const subdistrictInput = document.getElementById('subdistrict');
+  const waistInput = document.getElementById('waist');
+
   const weightInput = document.getElementById('weight');
   const heightInput = document.getElementById('height');
   const bmiValue = document.getElementById('bmiValue');
@@ -344,6 +347,8 @@
   const submitBtn = document.getElementById('submitBtn');
   const form = document.getElementById('regForm');
   const toast = document.getElementById('toast');
+
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbycsjAaffHZA8anxIO6DqgRfO-qxR1pYJ85XNlxMEHtBjEL78truSYTR601Nm0c2iBC/exec';
 
   function calcBMI() {
     const w = parseFloat(weightInput.value);
@@ -380,16 +385,62 @@
   pdpaConsent.addEventListener('change', updateSubmitState);
   updateSubmitState();
 
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2500);
-    // ตรงนี้ในของจริงจะ fetch ไปยัง backend เช่น
-    // fetch('/api/register', { method: 'POST', body: JSON.stringify({...}) })
+
+    const payload = {
+      firstName: firstNameInput.value,
+      lastName: lastNameInput.value,
+      phone: phoneInput.value,
+      gender: genderInput.value,
+      ageRange: ageRangeInput.value,
+      occupation: occupationInput.value,
+      rights: rightsInput.value,
+      moo: mooInput.value,
+      tambon: subdistrictInput.value,
+      weight: weightInput.value,
+      height: heightInput.value,
+      waist: waistInput.value,
+      bmi: bmiValue.textContent
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'กำลังบันทึก...';
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    })
+      .then(res => res.json())
+      .then(result => {
+        if (result.result === 'success') {
+          showToast('สมัครสมาชิกสำเร็จ 🎉');
+          form.reset();
+          bmiValue.textContent = '-';
+          bmiHint.textContent = 'กรุณากรอกน้ำหนักและส่วนสูง';
+        } else {
+          showToast('เกิดข้อผิดพลาด: ' + (result.message || 'ไม่ทราบสาเหตุ'));
+        }
+      })
+      .catch(err => {
+        showToast('ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่');
+        console.error(err);
+      })
+      .finally(() => {
+        submitBtn.disabled = !pdpaConsent.checked;
+        submitBtn.textContent = '👤+ สมัครสมาชิก';
+      });
   });
 </script>
 
