@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ban Klang Health | สมัครสมาชิก</title>
+<style>
+  :root {
+    --blue: #2196f3;
+    --pink: #ec4899;
+    --text-dark: #1f2937;
+    --text-gray: #6b7280;
+    --border: #e5e7eb;
+    --bg: #eaf4fb;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', 'Sarabun', 'Prompt', sans-serif;
+    background: var(--bg);
+    color: var(--text-dark);
+  }
+
+  .page {
+    max-width: 480px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #4dd0e1 0%, #8bc34a 45%, #ec4899 100%);
+    border-radius: 0 0 28px 28px;
+    padding: 36px 20px 44px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: #fff;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: #4dd0e1;
+  }
+
+  .header h1 {
+    font-size: 26px;
+    margin: 4px 0;
+  }
+
+  .header p {
+    margin: 2px 0;
+    font-size: 14px;
+    opacity: 0.95;
+  }
+
+  /* Cards */
+  .card {
+    background: #fff;
+    border-radius: 18px;
+    margin: 18px 16px 0;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+
+  .card h2 {
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .icon-person::before { content: "👤"; }
+  .icon-heart::before { content: "❤️"; }
+  .icon-lock::before { content: "🔒"; }
+
+  label {
+    display: block;
+    font-size: 14px;
+    margin: 14px 0 6px;
+    color: var(--text-dark);
+  }
+
+  .required::after {
+    content: " *";
+    color: #ef4444;
+  }
+
+  input[type="text"],
+  input[type="tel"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 15px;
+    color: var(--text-dark);
+    background: #fff;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236b7280' viewBox='0 0 16 16'><path d='M8 11L3 6h10z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(33,150,243,0.15);
+  }
+
+  /* BMI box */
+  .bmi-box {
+    margin-top: 14px;
+    border-radius: 14px;
+    padding: 24px 16px;
+    text-align: center;
+    background: linear-gradient(135deg, #e0f7fa, #e8f5e9);
+    border: 1px solid #d7ecd9;
+  }
+
+  .bmi-value {
+    font-size: 30px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 6px;
+    min-height: 36px;
+  }
+
+  .bmi-hint {
+    color: #4caf50;
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .bmi-hint.category {
+    color: #2196f3;
+  }
+
+  /* PDPA */
+  .pdpa-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .pdpa-row input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    accent-color: var(--blue);
+    flex-shrink: 0;
+  }
+
+  .pdpa-row span {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-dark);
+  }
+
+  /* Submit */
+  .submit-btn {
+    display: block;
+    width: calc(100% - 32px);
+    margin: 22px 16px 0;
+    padding: 16px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #4dd0e1, #8bc34a, #ec4899);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .submit-btn:not(:disabled):active {
+    transform: scale(0.98);
+  }
+
+  .error-text {
+    color: #ef4444;
+    font-size: 13px;
+    margin-top: 4px;
+    display: none;
+  }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%) translateY(20px);
+    background: #1f2937;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="header">
+    <div class="avatar">?</div>
+    <h1>Ban Klang Health</h1>
+    <p>สุขภาพดี เริ่มที่ตัวเรา</p>
+    <p>โรงพยาบาลส่งเสริมสุขภาพตำบลบ้านกลาง</p>
+  </div>
+
+  <form id="regForm">
+
+    <!-- ข้อมูลสมาชิก -->
+    <div class="card">
+      <h2><span class="icon-person"></span> ข้อมูลสมาชิก</h2>
+
+      <label class="required">ชื่อ</label>
+      <input type="text" id="firstName" required>
+
+      <label class="required">นามสกุล</label>
+      <input type="text" id="lastName" required>
+
+      <label class="required">เบอร์โทรศัพท์</label>
+      <input type="tel" id="phone" pattern="[0-9]{9,10}" required placeholder="08xxxxxxxx">
+
+      <label>เพศ</label>
+      <select id="gender">
+        <option value="ชาย">ชาย</option>
+        <option value="หญิง">หญิง</option>
+        <option value="ไม่ระบุ">ไม่ระบุ</option>
+      </select>
+
+      <label>ช่วงอายุ</label>
+      <select id="ageRange">
+        <option>ต่ำกว่า 20 ปี</option>
+        <option>20 - 40 ปี</option>
+        <option>41 - 60 ปี</option>
+        <option>มากกว่า 60 ปี</option>
+      </select>
+
+      <label>อาชีพ</label>
+      <select id="occupation">
+        <option value="">เลือกอาชีพ</option>
+        <option>รับราชการ</option>
+        <option>เกษตรกร</option>
+        <option>ค้าขาย/ธุรกิจส่วนตัว</option>
+        <option>รับจ้างทั่วไป</option>
+        <option>นักเรียน/นักศึกษา</option>
+        <option>ว่างงาน</option>
+        <option>อื่นๆ</option>
+      </select>
+
+      <label>สิทธิการรักษา</label>
+      <select id="rights">
+        <option value="">เลือกสิทธิ</option>
+        <option>บัตรทอง (สปสช.)</option>
+        <option>ประกันสังคม</option>
+        <option>ข้าราชการ/รัฐวิสาหกิจ</option>
+        <option>ชำระเงินเอง</option>
+        <option>อื่นๆ</option>
+      </select>
+
+      <label>หมู่ที่</label>
+      <input type="text" id="moo">
+
+      <label>ตำบล</label>
+      <select id="subdistrict">
+        <option>บ้านกลาง</option>
+      </select>
+    </div>
+
+    <!-- ข้อมูลสุขภาพ -->
+    <div class="card">
+      <h2><span class="icon-heart"></span> ข้อมูลสุขภาพ</h2>
+
+      <label>น้ำหนัก (กก.)</label>
+      <input type="number" id="weight" min="0" step="0.1">
+
+      <label>ส่วนสูง (ซม.)</label>
+      <input type="number" id="height" min="0" step="0.1">
+
+      <label>รอบเอว (ซม.)</label>
+      <input type="number" id="waist" min="0" step="0.1">
+
+      <label>ค่าดัชนีมวลกาย (BMI)</label>
+      <div class="bmi-box">
+        <div class="bmi-value" id="bmiValue">-</div>
+        <div class="bmi-hint" id="bmiHint">กรุณากรอกน้ำหนักและส่วนสูง</div>
+      </div>
+    </div>
+
+    <!-- PDPA -->
+    <div class="card">
+      <h2><span class="icon-lock"></span> PDPA</h2>
+      <label class="pdpa-row" style="margin-top:0;">
+        <input type="checkbox" id="pdpaConsent" required>
+        <span>ข้าพเจ้ายินยอมให้ รพ.สต.บ้านกลาง เก็บรวบรวมและใช้ข้อมูลส่วนบุคคลตามนโยบายคุ้มครองข้อมูลส่วนบุคคล</span>
+      </label>
+    </div>
+
+    <button type="submit" class="submit-btn" id="submitBtn" disabled>👤+ สมัครสมาชิก</button>
+
+  </form>
+</div>
+
+<div class="toast" id="toast">สมัครสมาชิกสำเร็จ 🎉</div>
+
+<script>
+  const weightInput = document.getElementById('weight');
+  const heightInput = document.getElementById('height');
+  const bmiValue = document.getElementById('bmiValue');
+  const bmiHint = document.getElementById('bmiHint');
+  const pdpaConsent = document.getElementById('pdpaConsent');
+  const submitBtn = document.getElementById('submitBtn');
+  const form = document.getElementById('regForm');
+  const toast = document.getElementById('toast');
+
+  function calcBMI() {
+    const w = parseFloat(weightInput.value);
+    const h = parseFloat(heightInput.value);
+
+    if (!w || !h) {
+      bmiValue.textContent = '-';
+      bmiHint.textContent = 'กรุณากรอกน้ำหนักและส่วนสูง';
+      bmiHint.className = 'bmi-hint';
+      return;
+    }
+
+    const hM = h / 100;
+    const bmi = w / (hM * hM);
+    bmiValue.textContent = bmi.toFixed(1);
+
+    let category, color;
+    if (bmi < 18.5) { category = 'น้ำหนักน้อยกว่าเกณฑ์'; color = '#2196f3'; }
+    else if (bmi < 23) { category = 'น้ำหนักปกติ'; color = '#4caf50'; }
+    else if (bmi < 25) { category = 'น้ำหนักเกิน'; color = '#ff9800'; }
+    else if (bmi < 30) { category = 'อ้วนระดับ 1'; color = '#f4511e'; }
+    else { category = 'อ้วนระดับ 2'; color = '#e53935'; }
+
+    bmiHint.textContent = category;
+    bmiHint.style.color = color;
+  }
+
+  weightInput.addEventListener('input', calcBMI);
+  heightInput.addEventListener('input', calcBMI);
+
+  function updateSubmitState() {
+    submitBtn.disabled = !pdpaConsent.checked;
+  }
+  pdpaConsent.addEventListener('change', updateSubmitState);
+  updateSubmitState();
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+    // ตรงนี้ในของจริงจะ fetch ไปยัง backend เช่น
+    // fetch('/api/register', { method: 'POST', body: JSON.stringify({...}) })
+  });
+</script>
+
+</body>
+</html>
