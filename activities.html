@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>กิจกรรมสุขภาพ | Ban Klang Health</title>
+<style>
+  :root {
+    --blue: #2196f3;
+    --pink: #ec4899;
+    --text-dark: #1f2937;
+    --text-gray: #6b7280;
+    --border: #e5e7eb;
+    --bg: #eaf4fb;
+    --green: #4caf50;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', 'Sarabun', 'Prompt', sans-serif;
+    background: var(--bg);
+    color: var(--text-dark);
+  }
+
+  .page {
+    max-width: 480px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #4dd0e1 0%, #8bc34a 45%, #ec4899 100%);
+    border-radius: 0 0 28px 28px;
+    padding: 36px 20px 40px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .header-icon {
+    font-size: 46px;
+    margin-bottom: 4px;
+  }
+
+  .header h1 {
+    font-size: 25px;
+    margin: 4px 0 0;
+  }
+
+  .header h2 {
+    font-size: 18px;
+    margin: 2px 0 10px;
+    font-weight: 600;
+  }
+
+  .header p {
+    margin: 2px 0;
+    font-size: 14px;
+    opacity: 0.95;
+  }
+
+  .header .tagline {
+    margin-top: 8px;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 18px;
+    margin: 18px 16px 0;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+
+  .card h2 {
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ==== phone capture ==== */
+  .phone-box {
+    background: #fff7e6;
+    border: 1px solid #ffe1a8;
+  }
+
+  .phone-box p {
+    margin: 0 0 10px;
+    font-size: 13.5px;
+    color: var(--text-gray);
+  }
+
+  .phone-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .phone-row input {
+    flex: 1;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 15px;
+  }
+
+  .phone-row button {
+    padding: 0 18px;
+    border: none;
+    border-radius: 12px;
+    background: var(--blue);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .phone-saved {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+
+  .phone-saved a {
+    color: var(--blue);
+    font-size: 13px;
+  }
+
+  /* ==== activity items ==== */
+  .item {
+    border-left: 4px solid var(--blue);
+    background: #f5faff;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+
+  .item.event {
+    border-left-color: var(--pink);
+    background: #fdf5f8;
+  }
+
+  .item:last-child { margin-bottom: 0; }
+
+  .item .time {
+    font-size: 13px;
+    color: var(--text-gray);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .item .title {
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .item .tag {
+    display: inline-block;
+    background: #d7ecd9;
+    color: #2e7d32;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+
+  .item .desc {
+    font-size: 13.5px;
+    color: var(--text-dark);
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .item button {
+    border: none;
+    border-radius: 999px;
+    padding: 11px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .item .join-btn { background: var(--green); }
+  .item .rsvp-btn { background: var(--blue); }
+
+  .item button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  /* ==== missions ==== */
+  .mission {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    border-left: 4px solid var(--blue);
+    background: #f5faff;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+
+  .mission:last-child { margin-bottom: 0; }
+
+  .mission-left {
+    flex: 1;
+  }
+
+  .mission-name {
+    font-size: 14.5px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .progress-track {
+    height: 8px;
+    border-radius: 999px;
+    background: #dfe9f5;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--green);
+    border-radius: 999px;
+  }
+
+  .status-pill {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .status-active { background: #d7ecd9; color: #2e7d32; }
+  .status-soon { background: #fff3cd; color: #a15c00; }
+  .status-dev { background: #e5e7eb; color: #4b5563; }
+
+  /* ==== news ==== */
+  .news-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .news-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .news-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .news-sub {
+    font-size: 13px;
+    color: var(--text-gray);
+  }
+
+  /* ==== map ==== */
+  .map-wrap {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .map-wrap iframe {
+    width: 100%;
+    height: 220px;
+    border: 0;
+    display: block;
+  }
+
+  .map-link {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 13.5px;
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%) translateY(20px);
+    background: #1f2937;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+    max-width: 90%;
+    text-align: center;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="header">
+    <div class="header-icon">🏃</div>
+    <h1>กิจกรรมสุขภาพ</h1>
+    <h2>Ban Klang Health</h2>
+    <p>ร่วมกิจกรรมเพื่อสุขภาพ</p>
+    <p class="tagline">สะสมแต้ม แลกรางวัล</p>
+  </div>
+
+  <!-- phone capture -->
+  <div class="card phone-box" id="phoneBox">
+    <p>กรอกเบอร์โทรศัพท์ที่ใช้สมัครสมาชิก เพื่อรับแต้มเมื่อเข้าร่วมกิจกรรม (กรอกครั้งเดียว ระบบจะจดจำในอุปกรณ์นี้)</p>
+    <div class="phone-row">
+      <input type="tel" id="phoneInput" placeholder="08xxxxxxxx">
+      <button id="savePhoneBtn">บันทึก</button>
+    </div>
+    <div class="phone-saved" id="phoneSaved">
+      <span>เบอร์ของคุณ: <b id="phoneDisplay"></b></span>
+      <a href="#" id="changePhoneLink">เปลี่ยนเบอร์</a>
+    </div>
+  </div>
+
+  <!-- weekly schedule -->
+  <div class="card">
+    <h2>📅 ตารางกิจกรรมประจำสัปดาห์</h2>
+
+    <div class="item">
+      <div class="time">📅 ทุกวันจันทร์ 18.00 - 19.00 น.</div>
+      <div class="title">💃 เต้นแอโรบิก</div>
+      <div class="tag">ลานหน้าเทศบาลตำบลบ้านกลาง</div>
+      <div class="desc">ออกกำลังกายแบบแอโรบิก อย่างน้อย 50 นาที รับ 1 คะแนน</div>
+      <button class="join-btn" data-activity="aerobic" data-points="1">✓ เข้าร่วมกิจกรรม</button>
+    </div>
+
+    <div class="item">
+      <div class="time">📅 ทุกวันพุธ 17.30 - 18.30 น.</div>
+      <div class="title">🚶 เดินเพื่อสุขภาพ</div>
+      <div class="tag">สวนสาธารณะบ้านกลาง</div>
+      <div class="desc">เดินสะสมระยะทาง 50 นาที รับ 1 คะแนน</div>
+      <button class="join-btn" data-activity="walking" data-points="1">✓ เข้าร่วมกิจกรรม</button>
+    </div>
+
+    <div class="item">
+      <div class="time">📅 ทุกวันศุกร์ 18.00 - 19.00 น.</div>
+      <div class="title">🏃 วิ่งเพื่อสุขภาพ</div>
+      <div class="tag">สนามกีฬาเทศบาล</div>
+      <div class="desc">วิ่งเพื่อสุขภาพ 50 นาที รับ 1 คะแนน</div>
+      <button class="join-btn" data-activity="running" data-points="1">✓ เข้าร่วมกิจกรรม</button>
+    </div>
+  </div>
+
+  <!-- rpst events -->
+  <div class="card">
+    <h2>🏥 กิจกรรมจาก รพ.สต.</h2>
+
+    <div class="item event">
+      <div class="time">📅 15 สิงหาคม 2569 เวลา 08.30 - 12.00 น.</div>
+      <div class="title">🩺 ตรวจคัดกรองเบาหวานและความดัน</div>
+      <div class="tag">รพ.สต.บ้านกลาง</div>
+      <div class="desc">ตรวจน้ำตาลในเลือด วัดความดัน ประเมินความเสี่ยงโรคไม่ติดต่อเรื้อรัง (NCD)</div>
+      <button class="rsvp-btn" data-event="diabetes_screen">📅 สนใจเข้าร่วม</button>
+    </div>
+
+    <div class="item event">
+      <div class="time">📅 28 สิงหาคม 2569 เวลา 09.00 - 12.00 น.</div>
+      <div class="title">💉 ฉีดวัคซีนไข้หวัดใหญ่</div>
+      <div class="tag">รพ.สต.บ้านกลาง</div>
+      <div class="desc">บริการฉีดวัคซีนสำหรับประชาชน ตามสิทธิที่กำหนด</div>
+      <button class="rsvp-btn" data-event="flu_vaccine">📅 สนใจเข้าร่วม</button>
+    </div>
+  </div>
+
+  <!-- monthly missions -->
+  <div class="card">
+    <h2>🎯 ภารกิจสุขภาพประจำเดือน</h2>
+
+    <div class="mission">
+      <div class="mission-left">
+        <div class="mission-name">🥗 รับประทานผักทุกวัน</div>
+        <div class="progress-track"><div class="progress-fill" style="width:40%;"></div></div>
+      </div>
+      <span class="status-pill status-active">กำลังดำเนินการ</span>
+    </div>
+
+    <div class="mission">
+      <div class="mission-left">
+        <div class="mission-name">🚶 เดินสะสม 20,000 ก้าว</div>
+      </div>
+      <span class="status-pill status-soon">เร็ว ๆ นี้</span>
+    </div>
+
+    <div class="mission">
+      <div class="mission-left">
+        <div class="mission-name">💧 ดื่มน้ำวันละ 8 แก้ว</div>
+      </div>
+      <span class="status-pill status-dev">กำลังพัฒนา</span>
+    </div>
+  </div>
+
+  <!-- news -->
+  <div class="card">
+    <h2>📰 ข่าวกิจกรรม</h2>
+
+    <div class="news-item">
+      <div class="news-title">🏃 ขอเชิญร่วมกิจกรรมเดิน-วิ่งเพื่อสุขภาพ</div>
+      <div class="news-sub">วันอาทิตย์ที่ 10 สิงหาคม 2569</div>
+    </div>
+    <div class="news-item">
+      <div class="news-title">💃 เต้นแอโรบิกทุกวันจันทร์</div>
+      <div class="news-sub">เริ่มเวลา 18.00 น.</div>
+    </div>
+    <div class="news-item">
+      <div class="news-title">🩺 ตรวจสุขภาพประจำปี</div>
+      <div class="news-sub">ให้บริการฟรีสำหรับประชาชนในพื้นที่</div>
+    </div>
+  </div>
+
+  <!-- map -->
+  <div class="card">
+    <h2>📍 สถานที่จัดกิจกรรม</h2>
+    <div class="map-wrap">
+      <iframe id="mapFrame" loading="lazy"></iframe>
+    </div>
+    <a class="map-link" id="mapLink" href="#" target="_blank" rel="noopener">เปิดใน Google Maps ↗</a>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbycsjAaffHZA8anxIO6DqgRfO-qxR1pYJ85XNlxMEHtBjEL78truSYTR601Nm0c2iBC/exec';
+  const PHONE_KEY = 'blk_phone';
+
+  const phoneBox = document.getElementById('phoneBox');
+  const phoneInput = document.getElementById('phoneInput');
+  const savePhoneBtn = document.getElementById('savePhoneBtn');
+  const phoneSaved = document.getElementById('phoneSaved');
+  const phoneDisplay = document.getElementById('phoneDisplay');
+  const changePhoneLink = document.getElementById('changePhoneLink');
+  const toast = document.getElementById('toast');
+
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2800);
+  }
+
+  function getSavedPhone() {
+    return localStorage.getItem(PHONE_KEY) || '';
+  }
+
+  function renderPhoneState() {
+    const saved = getSavedPhone();
+    if (saved) {
+      phoneInput.parentElement.style.display = 'none';
+      phoneSaved.style.display = 'flex';
+      phoneDisplay.textContent = saved;
+    } else {
+      phoneInput.parentElement.style.display = 'flex';
+      phoneSaved.style.display = 'none';
+    }
+  }
+
+  savePhoneBtn.addEventListener('click', function () {
+    const val = phoneInput.value.trim();
+    if (!/^[0-9]{9,10}$/.test(val)) {
+      showToast('กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง');
+      return;
+    }
+    localStorage.setItem(PHONE_KEY, val);
+    renderPhoneState();
+    showToast('บันทึกเบอร์โทรศัพท์แล้ว');
+  });
+
+  changePhoneLink.addEventListener('click', function (e) {
+    e.preventDefault();
+    localStorage.removeItem(PHONE_KEY);
+    phoneInput.value = '';
+    renderPhoneState();
+  });
+
+  renderPhoneState();
+
+  function requirePhone() {
+    const phone = getSavedPhone();
+    if (!phone) {
+      showToast('กรุณากรอกเบอร์โทรศัพท์ก่อนเข้าร่วมกิจกรรม');
+      phoneBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return null;
+    }
+    return phone;
+  }
+
+  document.querySelectorAll('.join-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const phone = requirePhone();
+      if (!phone) return;
+
+      const activityId = btn.getAttribute('data-activity');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'กำลังบันทึก...';
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ type: 'activity', phone: phone, activityId: activityId })
+      })
+        .then(res => res.json())
+        .then(result => {
+          if (result.result === 'success') {
+            showToast('เข้าร่วมกิจกรรมสำเร็จ ได้รับ ' + result.pointsEarned + ' คะแนน 🎉');
+            btn.textContent = '✓ เข้าร่วมแล้ว';
+          } else {
+            showToast(result.message || 'เกิดข้อผิดพลาด');
+            btn.disabled = false;
+            btn.textContent = originalText;
+          }
+        })
+        .catch(function () {
+          showToast('ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่');
+          btn.disabled = false;
+          btn.textContent = originalText;
+        });
+    });
+  });
+
+  document.querySelectorAll('.rsvp-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const phone = requirePhone();
+      if (!phone) return;
+
+      const eventId = btn.getAttribute('data-event');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'กำลังบันทึก...';
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ type: 'rsvp', phone: phone, eventId: eventId })
+      })
+        .then(res => res.json())
+        .then(result => {
+          if (result.result === 'success') {
+            showToast('แจ้งความสนใจเข้าร่วมสำเร็จ 🎉');
+            btn.textContent = '✓ แจ้งความสนใจแล้ว';
+          } else {
+            showToast(result.message || 'เกิดข้อผิดพลาด');
+            btn.disabled = false;
+            btn.textContent = originalText;
+          }
+        })
+        .catch(function () {
+          showToast('ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่');
+          btn.disabled = false;
+          btn.textContent = originalText;
+        });
+    });
+  });
+
+  // map
+  const mapQuery = 'รพ.สต.บ้านกลาง ตำบลบ้านกลาง จังหวัดลำพูน';
+  document.getElementById('mapFrame').src = 'https://www.google.com/maps?q=' + encodeURIComponent(mapQuery) + '&output=embed';
+  document.getElementById('mapLink').href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(mapQuery);
+</script>
+
+</body>
+</html>
