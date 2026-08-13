@@ -38,33 +38,11 @@
     color: #fff;
   }
 
-  .header-icon {
-    font-size: 46px;
-    margin-bottom: 4px;
-  }
-
-  .header h1 {
-    font-size: 25px;
-    margin: 4px 0 0;
-  }
-
-  .header h2 {
-    font-size: 18px;
-    margin: 2px 0 10px;
-    font-weight: 600;
-  }
-
-  .header p {
-    margin: 2px 0;
-    font-size: 14px;
-    opacity: 0.95;
-  }
-
-  .header .tagline {
-    margin-top: 8px;
-    font-weight: 700;
-    font-size: 14px;
-  }
+  .header-icon { font-size: 46px; margin-bottom: 4px; }
+  .header h1 { font-size: 25px; margin: 4px 0 0; }
+  .header h2 { font-size: 18px; margin: 2px 0 10px; font-weight: 600; }
+  .header p { margin: 2px 0; font-size: 14px; opacity: 0.95; }
+  .header .tagline { margin-top: 8px; font-weight: 700; font-size: 14px; }
 
   .card {
     background: #fff;
@@ -85,22 +63,9 @@
   }
 
   /* ==== phone capture ==== */
-  .phone-box {
-    background: #fff7e6;
-    border: 1px solid #ffe1a8;
-  }
-
-  .phone-box p {
-    margin: 0 0 10px;
-    font-size: 13.5px;
-    color: var(--text-gray);
-  }
-
-  .phone-row {
-    display: flex;
-    gap: 8px;
-  }
-
+  .phone-box { background: #fff7e6; border: 1px solid #ffe1a8; }
+  .phone-box p { margin: 0 0 10px; font-size: 13.5px; color: var(--text-gray); }
+  .phone-row { display: flex; gap: 8px; }
   .phone-row input {
     flex: 1;
     padding: 12px 14px;
@@ -108,7 +73,6 @@
     border-radius: 12px;
     font-size: 15px;
   }
-
   .phone-row button {
     padding: 0 18px;
     border: none;
@@ -118,18 +82,13 @@
     font-weight: 700;
     font-size: 14px;
   }
-
   .phone-saved {
     display: none;
     align-items: center;
     justify-content: space-between;
     font-size: 14px;
   }
-
-  .phone-saved a {
-    color: var(--blue);
-    font-size: 13px;
-  }
+  .phone-saved a { color: var(--blue); font-size: 13px; }
 
   /* ==== activity items ==== */
   .item {
@@ -139,14 +98,8 @@
     padding: 16px;
     margin-bottom: 14px;
   }
-
-  .item.event {
-    border-left-color: var(--pink);
-    background: #fdf5f8;
-  }
-
+  .item.event { border-left-color: var(--pink); background: #fdf5f8; }
   .item:last-child { margin-bottom: 0; }
-
   .item .time {
     font-size: 13px;
     color: var(--text-gray);
@@ -155,7 +108,6 @@
     gap: 6px;
     margin-bottom: 6px;
   }
-
   .item .title {
     font-size: 16px;
     font-weight: 700;
@@ -164,7 +116,6 @@
     gap: 6px;
     margin-bottom: 8px;
   }
-
   .item .tag {
     display: inline-block;
     background: #d7ecd9;
@@ -175,14 +126,12 @@
     border-radius: 999px;
     margin-bottom: 10px;
   }
-
   .item .desc {
     font-size: 13.5px;
     color: var(--text-dark);
     line-height: 1.5;
     margin-bottom: 12px;
   }
-
   .item button {
     border: none;
     border-radius: 999px;
@@ -192,14 +141,42 @@
     color: #fff;
     cursor: pointer;
   }
-
-  .item .join-btn { background: var(--green); }
   .item .rsvp-btn { background: var(--blue); }
+  .item button:disabled { opacity: 0.6; cursor: not-allowed; }
 
-  .item button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+  /* ==== checkin/checkout + code ==== */
+  .code-input-row {
+    margin-bottom: 10px;
   }
+  .code-input-row input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+  .code-input-row label {
+    display: block;
+    font-size: 12.5px;
+    color: var(--text-gray);
+    margin-bottom: 4px;
+  }
+  .checkin-row { display: flex; gap: 8px; }
+  .checkin-row button {
+    border: none;
+    border-radius: 999px;
+    padding: 11px 14px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    flex: 1;
+  }
+  .checkin-btn { background: var(--green); }
+  .checkout-btn { background: #f97316; }
+  .checkin-row button:disabled { opacity: 0.6; cursor: not-allowed; }
 
   /* ==== missions ==== */
   .mission {
@@ -213,32 +190,16 @@
     padding: 14px 16px;
     margin-bottom: 12px;
   }
-
   .mission:last-child { margin-bottom: 0; }
-
-  .mission-left {
-    flex: 1;
-  }
-
-  .mission-name {
-    font-size: 14.5px;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-
+  .mission-left { flex: 1; }
+  .mission-name { font-size: 14.5px; font-weight: 600; margin-bottom: 8px; }
   .progress-track {
     height: 8px;
     border-radius: 999px;
     background: #dfe9f5;
     overflow: hidden;
   }
-
-  .progress-fill {
-    height: 100%;
-    background: var(--green);
-    border-radius: 999px;
-  }
-
+  .progress-fill { height: 100%; background: var(--green); border-radius: 999px; }
   .status-pill {
     font-size: 12px;
     font-weight: 700;
@@ -246,19 +207,13 @@
     border-radius: 999px;
     white-space: nowrap;
   }
-
   .status-active { background: #d7ecd9; color: #2e7d32; }
   .status-soon { background: #fff3cd; color: #a15c00; }
   .status-dev { background: #e5e7eb; color: #4b5563; }
 
   /* ==== news ==== */
-  .news-item {
-    padding: 12px 0;
-    border-bottom: 1px solid var(--border);
-  }
-
+  .news-item { padding: 12px 0; border-bottom: 1px solid var(--border); }
   .news-item:last-child { border-bottom: none; padding-bottom: 0; }
-
   .news-title {
     font-size: 14.5px;
     font-weight: 700;
@@ -267,26 +222,11 @@
     gap: 6px;
     margin-bottom: 4px;
   }
-
-  .news-sub {
-    font-size: 13px;
-    color: var(--text-gray);
-  }
+  .news-sub { font-size: 13px; color: var(--text-gray); }
 
   /* ==== map ==== */
-  .map-wrap {
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-  }
-
-  .map-wrap iframe {
-    width: 100%;
-    height: 220px;
-    border: 0;
-    display: block;
-  }
-
+  .map-wrap { border-radius: 14px; overflow: hidden; border: 1px solid var(--border); }
+  .map-wrap iframe { width: 100%; height: 220px; border: 0; display: block; }
   .map-link {
     display: block;
     text-align: center;
@@ -313,11 +253,7 @@
     max-width: 90%;
     text-align: center;
   }
-
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
@@ -354,7 +290,14 @@
       <div class="title">💃 เต้นแอโรบิก</div>
       <div class="tag">ลานหน้าเทศบาลตำบลบ้านกลาง</div>
       <div class="desc">ออกกำลังกายแบบแอโรบิก อย่างน้อย 50 นาที รับ 1 คะแนน</div>
-      <button class="join-btn" data-activity="aerobic" data-points="1">✓ เข้าร่วมกิจกรรม</button>
+      <div class="code-input-row">
+        <label>รหัสประจำวัน (ดูได้จากป้ายหน้างาน)</label>
+        <input type="text" inputmode="numeric" maxlength="6" placeholder="กรอกรหัส 6 หลัก" class="code-input" data-activity="aerobic">
+      </div>
+      <div class="checkin-row" data-activity="aerobic">
+        <button class="checkin-btn" data-activity="aerobic">▶ เช็คอิน</button>
+        <button class="checkout-btn" data-activity="aerobic" disabled>⏹ เช็คเอาท์</button>
+      </div>
     </div>
 
     <div class="item">
@@ -362,7 +305,14 @@
       <div class="title">🚶 เดินเพื่อสุขภาพ</div>
       <div class="tag">สวนสาธารณะบ้านกลาง</div>
       <div class="desc">เดินสะสมระยะทาง 50 นาที รับ 1 คะแนน</div>
-      <button class="join-btn" data-activity="walking" data-points="1">✓ เข้าร่วมกิจกรรม</button>
+      <div class="code-input-row">
+        <label>รหัสประจำวัน (ดูได้จากป้ายหน้างาน)</label>
+        <input type="text" inputmode="numeric" maxlength="6" placeholder="กรอกรหัส 6 หลัก" class="code-input" data-activity="walking">
+      </div>
+      <div class="checkin-row" data-activity="walking">
+        <button class="checkin-btn" data-activity="walking">▶ เช็คอิน</button>
+        <button class="checkout-btn" data-activity="walking" disabled>⏹ เช็คเอาท์</button>
+      </div>
     </div>
 
     <div class="item">
@@ -370,7 +320,14 @@
       <div class="title">🏃 วิ่งเพื่อสุขภาพ</div>
       <div class="tag">สนามกีฬาเทศบาล</div>
       <div class="desc">วิ่งเพื่อสุขภาพ 50 นาที รับ 1 คะแนน</div>
-      <button class="join-btn" data-activity="running" data-points="1">✓ เข้าร่วมกิจกรรม</button>
+      <div class="code-input-row">
+        <label>รหัสประจำวัน (ดูได้จากป้ายหน้างาน)</label>
+        <input type="text" inputmode="numeric" maxlength="6" placeholder="กรอกรหัส 6 หลัก" class="code-input" data-activity="running">
+      </div>
+      <div class="checkin-row" data-activity="running">
+        <button class="checkin-btn" data-activity="running">▶ เช็คอิน</button>
+        <button class="checkout-btn" data-activity="running" disabled>⏹ เช็คเอาท์</button>
+      </div>
     </div>
   </div>
 
@@ -517,37 +474,69 @@
     return phone;
   }
 
-  document.querySelectorAll('.join-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      const phone = requirePhone();
-      if (!phone) return;
+  // ===== เช็คอิน / เช็คเอาท์ (พร้อมรหัสลับประจำวัน) =====
+  function callActivityApi(type, activityId, btn) {
+    const phone = requirePhone();
+    if (!phone) return;
 
-      const activityId = btn.getAttribute('data-activity');
-      const originalText = btn.textContent;
-      btn.disabled = true;
-      btn.textContent = 'กำลังบันทึก...';
+    const codeInput = document.querySelector('.code-input[data-activity="' + activityId + '"]');
+    const code = codeInput ? codeInput.value.trim() : '';
 
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ type: 'activity', phone: phone, activityId: activityId })
-      })
-        .then(res => res.json())
-        .then(result => {
-          if (result.result === 'success') {
-            showToast('เข้าร่วมกิจกรรมสำเร็จ ได้รับ ' + result.pointsEarned + ' คะแนน 🎉');
-            btn.textContent = '✓ เข้าร่วมแล้ว';
+    if (!code) {
+      showToast('กรุณากรอกรหัสประจำวันก่อน');
+      codeInput.focus();
+      return;
+    }
+
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'กำลังบันทึก...';
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ type: type, phone: phone, activityId: activityId, code: code })
+    })
+      .then(res => res.json())
+      .then(result => {
+        showToast(result.message || (result.result === 'success' ? 'สำเร็จ' : 'เกิดข้อผิดพลาด'));
+
+        if (result.result === 'success') {
+          const row = btn.closest('.checkin-row');
+          const inBtn = row.querySelector('.checkin-btn');
+          const outBtn = row.querySelector('.checkout-btn');
+
+          if (type === 'checkin') {
+            inBtn.disabled = true;
+            inBtn.textContent = '✓ เช็คอินแล้ว';
+            outBtn.disabled = false;
+            if (codeInput) codeInput.disabled = true;
           } else {
-            showToast(result.message || 'เกิดข้อผิดพลาด');
-            btn.disabled = false;
-            btn.textContent = originalText;
+            outBtn.disabled = true;
+            outBtn.textContent = '✓ เช็คเอาท์แล้ว';
+            inBtn.disabled = true;
           }
-        })
-        .catch(function () {
-          showToast('ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่');
+        } else {
           btn.disabled = false;
           btn.textContent = originalText;
-        });
+        }
+      })
+      .catch(function () {
+        showToast('ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่');
+        btn.disabled = false;
+        btn.textContent = originalText;
+      });
+  }
+
+  document.querySelectorAll('.checkin-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      callActivityApi('checkin', btn.getAttribute('data-activity'), btn);
+    });
+  });
+
+  document.querySelectorAll('.checkout-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      callActivityApi('checkout', btn.getAttribute('data-activity'), btn);
     });
   });
 
